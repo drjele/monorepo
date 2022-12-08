@@ -5,6 +5,7 @@ $header = 'Copyright (c) Adrian Jeledintan';
 $finder = (new PhpCsFixer\Finder())
     ->in(
         [
+            __DIR__ . '/libraries/*/src/',
             __DIR__ . '/projects/*/bin/',
             __DIR__ . '/projects/*/config/',
             __DIR__ . '/projects/*/migrations/',

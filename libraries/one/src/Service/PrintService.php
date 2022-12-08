@@ -8,6 +8,6 @@ declare(strict_types=1);
 
 namespace Monorepo\Library\Two\Service;
 
-class DebugService
+class PrintService
 {
 }
