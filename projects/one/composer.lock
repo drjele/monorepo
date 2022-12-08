@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fa49d33714142da0a2bef235a483185",
+    "content-hash": "85a659f0e00a37250eca7c24063c0300",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1492,6 +1492,69 @@
                 "type"
             ],
             "time": "2022-11-08T16:52:35+00:00"
+        },
+        {
+            "name": "drjele/symfony-console",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@gitlab.com:drjele-symfony/console.git",
+                "reference": "d8fae2a5dfb5aadec27b349cee377233136abfea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/drjele-symfony%2Fconsole/repository/archive.zip?sha=d8fae2a5dfb5aadec27b349cee377233136abfea",
+                "reference": "d8fae2a5dfb5aadec27b349cee377233136abfea",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/config": "^4.0|^5.0|^6.0",
+                "symfony/console": "^4.0|^5.0|^6.0",
+                "symfony/dependency-injection": "^4.0|^5.0|^6.0",
+                "symfony/filesystem": "^4.0|^5.0|^6.0",
+                "symfony/http-kernel": "^4.0|^5.0|^6.0"
+            },
+            "require-dev": {
+                "drjele/symfony-phpunit": "^4.0",
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "exclude": [
+                    "/scripts",
+                    "/tests",
+                    "/.php-cs-fixer.dist.php",
+                    "/.php_cs.dist",
+                    "/phpcs.xml.dist",
+                    "/phpunit.xml.dist"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drjele\\Symfony\\Console\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Jeledintan",
+                    "email": "adrian.jeledintan@gmail.com"
+                }
+            ],
+            "description": "Symfony console utilities",
+            "homepage": "https://gitlab.com/drjele-symfony/console",
+            "keywords": [
+                "console",
+                "cronjob",
+                "symfony",
+                "worker"
+            ],
+            "time": "2022-11-11T20:16:05+00:00"
         },
         {
             "name": "egulias/email-validator",

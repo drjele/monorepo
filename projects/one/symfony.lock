@@ -35,6 +35,9 @@
             "migrations/.gitignore"
         ]
     },
+    "drjele/symfony-console": {
+        "version": "v2.0.0"
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {

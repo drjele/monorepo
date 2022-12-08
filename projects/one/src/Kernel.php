@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * Copyright (c) Adrian Jeledintan
+ */
+
 namespace Monorepo\One;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
