@@ -1,14 +1,10 @@
 # source https://github.com/alexkaratarakis/gitattributes/blob/master/Web.gitattributes
 
-# auto detect (default value if not overwritten bellow)
-*                 text=auto
-
-# source code
 *.bash            text eol=lf
 *.bat             text eol=crlf
 *.cmd             text eol=crlf
 *.coffee          text
-*.css             text
+*.css             text diff=css
 *.htm             text diff=html
 *.html            text diff=html
 *.inc             text
@@ -30,6 +26,7 @@
 *.scm             text
 *.scss            text diff=css
 *.sh              text eol=lf
+.husky/*          text eol=lf
 *.sql             text
 *.styl            text
 *.tag             text
@@ -38,17 +35,15 @@
 *.xml             text
 *.xhtml           text diff=html
 
-# docker
 Dockerfile        text
 
-# documentation
 *.ipynb           text
-*.markdown        text
-*.md              text
-*.mdwn            text
-*.mdown           text
-*.mkd             text
-*.mkdn            text
+*.markdown        text diff=markdown
+*.md              text diff=markdown
+*.mdwn            text diff=markdown
+*.mdown           text diff=markdown
+*.mkd             text diff=markdown
+*.mkdn            text diff=markdown
 *.mdtxt           text
 *.mdtext          text
 *.txt             text
@@ -67,9 +62,9 @@ readme            text
 *README*          text
 TODO              text
 
-# templates
 *.dot             text
 *.ejs             text
+*.erb             text
 *.haml            text
 *.handlebars      text
 *.hbs             text
@@ -79,12 +74,12 @@ TODO              text
 *.mustache        text
 *.njk             text
 *.phtml           text
+*.svelte          text
 *.tmpl            text
 *.tpl             text
 *.twig            text
 *.vue             text
 
-# configs
 *.cnf             text
 *.conf            text
 *.config          text
@@ -93,8 +88,12 @@ TODO              text
 .gitattributes    text
 .gitconfig        text
 .htaccess         text
-*.lock            text
-package-lock.json text -diff
+*.lock            text -diff
+package.json      text eol=lf
+package-lock.json text eol=lf -diff
+pnpm-lock.yaml    text eol=lf -diff
+.prettierrc       text
+yarn.lock         text -diff
 *.toml            text
 *.yaml            text
 *.yml             text
@@ -102,10 +101,8 @@ browserslist      text
 Makefile          text
 makefile          text
 
-# heroku
 Procfile          text
 
-# graphics
 *.ai              binary
 *.bmp             binary
 *.eps             binary
@@ -129,7 +126,6 @@ Procfile          text
 *.wbmp            binary
 *.webp            binary
 
-# audio
 *.kar             binary
 *.m4a             binary
 *.mid             binary
@@ -138,12 +134,12 @@ Procfile          text
 *.ogg             binary
 *.ra              binary
 
-# video
 *.3gpp            binary
 *.3gp             binary
 *.as              binary
 *.asf             binary
 *.asx             binary
+*.avi             binary
 *.fla             binary
 *.flv             binary
 *.m4v             binary
@@ -157,7 +153,6 @@ Procfile          text
 *.swf             binary
 *.webm            binary
 
-# archives
 *.7z              binary
 *.gz              binary
 *.jar             binary
@@ -165,19 +160,15 @@ Procfile          text
 *.tar             binary
 *.zip             binary
 
-# fonts
 *.ttf             binary
 *.eot             binary
 *.otf             binary
 *.woff            binary
 *.woff2           binary
 
-# executables
 *.exe             binary
 *.pyc             binary
 
-# rc files (like .babelrc or .eslintrc)
 *.*rc             text
 
-# ignore files (like .npmignore or .gitignore)
 *.*ignore         text

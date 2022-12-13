@@ -1,0 +1,57 @@
+version: '3.8'
+
+networks:
+    monorepo:
+        driver: bridge
+
+services:
+    three-backend-php:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${THREE_PATH_DOCKER}/backend-php/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${THREE_PATH}/backend
+                CONF_PATH: ${THREE_PATH_DOCKER}/backend-php
+        privileged: true
+        restart: unless-stopped
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}:/var/www/app/
+        networks:
+            - monorepo
+    three-backend-nginx:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${THREE_PATH_DOCKER}/backend-nginx/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${THREE_PATH}/backend
+                CONF_PATH: ${THREE_PATH_DOCKER}/backend-nginx
+        privileged: true
+        restart: unless-stopped
+        ports:
+            - "1303:443"
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}${THREE_PATH}/backend/public/:/var/www/app/${THREE_PATH}/backend/public/
+            - ./${THREE_PATH}/backend-nginx/log/:/var/log/nginx/
+            - ${RELATIVE_PATH_TO_ROOT}${SHARED_CONFIG_PATH}/ssl/:/etc/nginx/ssl/
+        networks:
+            - monorepo
+    three-backend-mysql:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${THREE_PATH_DOCKER}/backend-mysql/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+        privileged: true
+        restart: unless-stopped
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        env_file:
+            - ${RELATIVE_PATH_TO_ROOT}${THREE_PATH}/backend/.env
+        ports:
+            - "1301:3306"
+        volumes:
+            - ./${THREE_PATH}/backend-mysql/data/:/var/lib/mysql/
+        networks:
+            - monorepo

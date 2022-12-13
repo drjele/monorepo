@@ -1,0 +1,34 @@
+version: '3.8'
+
+networks:
+    monorepo: # use for all containers
+        driver: bridge
+
+services:
+    library-lone:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${LIBRARY_PATH_DOCKER}/lone/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${LIBRARY_PATH}/lone
+        privileged: true
+        restart: unless-stopped
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}:/var/www/app/
+        networks:
+            - monorepo
+
+    library-ltwo:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${LIBRARY_PATH_DOCKER}/ltwo/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${LIBRARY_PATH}/ltwo
+        privileged: true
+        restart: unless-stopped
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}:/var/www/app/
+        networks:
+            - monorepo

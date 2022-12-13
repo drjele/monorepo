@@ -1,0 +1,76 @@
+version: '3.8'
+
+networks:
+    monorepo:
+        driver: bridge
+
+services:
+    two-frontend-nginx:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${TWO_PATH_DOCKER}/frontend-nginx/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${TWO_PATH}/frontend
+                CONF_PATH: ${TWO_PATH_DOCKER}/frontend-nginx
+        privileged: true
+        restart: unless-stopped
+        ports:
+            - "1204:443"
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}:/var/www/app/
+            - ./${TWO_PATH}/frontend-nginx/log/:/var/log/nginx/
+            - ${RELATIVE_PATH_TO_ROOT}${SHARED_CONFIG_PATH}/ssl/:/etc/nginx/ssl/
+        networks:
+            - monorepo
+
+    two-backend-php:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${TWO_PATH_DOCKER}/backend-php/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${TWO_PATH}/backend
+                CONF_PATH: ${TWO_PATH_DOCKER}/backend-php
+        privileged: true
+        restart: unless-stopped
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}:/var/www/app/
+        networks:
+            - monorepo
+    two-backend-nginx:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${TWO_PATH_DOCKER}/backend-nginx/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+                APP_PATH: ${TWO_PATH}/backend
+                CONF_PATH: ${TWO_PATH_DOCKER}/backend-nginx
+        privileged: true
+        restart: unless-stopped
+        ports:
+            - "1203:443"
+        volumes:
+            - ${RELATIVE_PATH_TO_ROOT}${TWO_PATH}/backend/public/:/var/www/app/${TWO_PATH}/backend/public/
+            - ./${TWO_PATH}/backend-nginx/log/:/var/log/nginx/
+            - ${RELATIVE_PATH_TO_ROOT}${SHARED_CONFIG_PATH}/ssl/:/etc/nginx/ssl/
+        networks:
+            - monorepo
+    two-backend-mysql:
+        build:
+            context: ${RELATIVE_PATH_TO_ROOT}
+            dockerfile: ${TWO_PATH_DOCKER}/backend-mysql/Dockerfile
+            args:
+                SHARED_CONFIG_PATH: ${SHARED_CONFIG_PATH}
+        privileged: true
+        restart: unless-stopped
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        env_file:
+            - ${RELATIVE_PATH_TO_ROOT}${TWO_PATH}/backend/.env
+        ports:
+            - "1201:3306"
+        volumes:
+            - ./${TWO_PATH}/backend-mysql/data/:/var/lib/mysql/
+        networks:
+            - monorepo
