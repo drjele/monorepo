@@ -8,8 +8,8 @@
 
     <rule ref="PSR2"/>
 
-    <file>application/</file>
-    <file>library/</file>
+    <file>./application/</file>
+    <file>./library/</file>
 
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/var/*</exclude-pattern>
