@@ -47,7 +47,7 @@ code_sniffer() {
 }
 
 check_php() {
-    php -v > /dev/null 2>&1
+    php -v >/dev/null 2>&1
     PHP_IS_INSTALLED=$?
 
     if [ "${PHP_IS_INSTALLED}" -ne 0 ]; then
@@ -79,7 +79,7 @@ if [ "${STAGED_FILES}" != "" ]; then
 
     println ""
 
-    # code_sniffer "${STAGED_FILES}"
+    code_sniffer "${STAGED_FILES}"
 fi
 
 stop $?
